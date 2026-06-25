@@ -1,7 +1,10 @@
 {
-  "name": "freelancer",
-  "title": "Freelancer",
-  "version": "3.3.7+1",
+  "name": "nazmul-portfolio",
+  "title": "Nazmul Hassan Portfolio",
+  "version": "1.0.0",
+  "scripts": {
+    "resume:pdf": "node scripts/generate-resume-pdf.js"
+  },
   "homepage": "http://startbootstrap.com/template-overviews/freelancer",
   "author": "Start Bootstrap",
   "license": {
@@ -19,7 +22,8 @@
     "gulp-less": "^3.1.0",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.5.4",
-    "jquery": "^1.11.3"
+    "jquery": "^1.11.3",
+    "puppeteer": "^24.43.1"
   },
   "repository": {
     "type": "git",
