@@ -1,32 +1,28 @@
 {
-  "name": "nazmul-portfolio",
-  "title": "Nazmul Hassan Portfolio",
-  "version": "1.0.0",
+  "name": "growstack",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "resume:pdf": "node scripts/generate-resume-pdf.js"
+    "dev": "next dev",
+    "build": "next build && node scripts/postexport.mjs",
+    "start": "npx --yes serve out",
+    "lint": "eslint"
   },
-  "homepage": "http://startbootstrap.com/template-overviews/freelancer",
-  "author": "Start Bootstrap",
-  "license": {
-    "type": "MIT",
-    "url": "https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE"
+  "dependencies": {
+    "framer-motion": "^13.2.0",
+    "next": "16.3.4",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
   },
   "devDependencies": {
-    "bootstrap": "^3.3.7",
-    "browser-sync": "^2.13.0",
-    "font-awesome": "^4.6.3",
-    "gulp": "^3.9.1",
-    "gulp-clean-css": "^2.0.10",
-    "gulp-filter": "^4.0.0",
-    "gulp-header": "^1.8.7",
-    "gulp-less": "^3.1.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-uglify": "^1.5.4",
-    "jquery": "^1.11.3",
-    "puppeteer": "^24.43.1"
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.4",
+    "tailwindcss": "^4",
+    "typescript": "^5"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/BlackrockDigital/startbootstrap-freelancer.git"
-  }
+  "description": "GrowStack technology consulting website"
 }
