@@ -46,19 +46,26 @@ If the variable is unset, the contact form falls back to a `mailto:` compose usi
 
 ## Deploy to GitHub Pages
 
-This repo ships a workflow at [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml).
+This repo builds a **static** site into `out/` and publishes it to the **`gh-pages`** branch via [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml).
 
-1. Push to `main` or `master` (or run the workflow manually).
-2. In the GitHub repo: **Settings → Pages → Build and deployment → Source** → choose **GitHub Actions**.
-3. After the workflow succeeds, the site is available at `https://nazmul19.github.io/`.
+### One-time Pages setting (required)
 
-### Custom domain `growstack.tech`
+If you see the README instead of the website, Pages is still serving the source branch.
 
-`public/CNAME` is set to `growstack.tech` and is copied into `out/` on build.
+1. Open the repo on GitHub → **Settings → Pages**
+2. Under **Build and deployment → Source**, choose **Deploy from a branch**
+3. Branch: **`gh-pages`** / folder: **`/` (root)** → Save
+4. Custom domain: `growstack.tech` (the workflow writes `CNAME` automatically)
 
-1. In GitHub Pages settings, confirm the custom domain `growstack.tech`.
-2. At your DNS provider, point the domain to GitHub Pages (A records for apex and/or CNAME for `www`, per [GitHub’s docs](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site)).
-3. Enable HTTPS once DNS has propagated.
+### After every push to `master` / `main`
+
+The workflow builds and updates `gh-pages`. Give it 1–2 minutes, then hard-refresh `https://growstack.tech`.
+
+You can also run the workflow manually: **Actions → Deploy GitHub Pages → Run workflow**.
+
+### Formspree secret (optional)
+
+Repo **Settings → Secrets and variables → Actions** → add `NEXT_PUBLIC_FORMSPREE_ENDPOINT`.
 
 ## Content edits
 
