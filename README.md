@@ -1,27 +1,74 @@
-# [Start Bootstrap](http://startbootstrap.com/) - [Freelancer](http://startbootstrap.com/template-overviews/freelancer/)
+# GrowStack
 
-[Freelancer](http://startbootstrap.com/template-overviews/freelancer/) is a one page freelancer portfolio theme for [Bootstrap](http://getbootstrap.com/) created by [Start Bootstrap](http://startbootstrap.com/). This theme features several content sections, a responsive portfolio grid with hover effects, full page portfolio item modals, and a working PHP contact form.
+Professional technology consulting website for [growstack.tech](https://growstack.tech).
 
-## Getting Started
+Static Next.js export, served from **GitHub Pages** (`nazmul19.github.io`).
 
-To begin using this template, choose one of the following options to get started:
-* [Download the latest release on Start Bootstrap](http://startbootstrap.com/template-overviews/freelancer/)
-* Clone the repo: `git clone https://github.com/BlackrockDigital/startbootstrap-freelancer.git`
-* Fork the repo
+## Stack
 
-## Bugs and Issues
+- Next.js (App Router, static `output: "export"`)
+- TypeScript
+- Tailwind CSS
+- Framer Motion
 
-Have a bug or an issue with this template? [Open a new issue](https://github.com/BlackrockDigital/startbootstrap-freelancer/issues) here on GitHub or leave a comment on the [template overview page at Start Bootstrap](http://startbootstrap.com/template-overviews/freelancer/).
+## Local development
 
-## Creator
+```bash
+npm install
+npm run dev
+```
 
-Start Bootstrap was created by and is maintained by **[David Miller](http://davidmiller.io/)**, Owner of [Blackrock Digital](http://blackrockdigital.io/).
+Open [http://localhost:3000](http://localhost:3000).
 
-* https://twitter.com/davidmillerskt
-* https://github.com/davidtmiller
+Build and preview the static site:
 
-Start Bootstrap is based on the [Bootstrap](http://getbootstrap.com/) framework created by [Mark Otto](https://twitter.com/mdo) and [Jacob Thorton](https://twitter.com/fat).
+```bash
+npm run build
+npm start
+```
 
-## Copyright and License
+`npm run build` writes a static site to `out/` (including `.nojekyll` and `CNAME`).
 
-Copyright 2013-2016 Blackrock Digital LLC. Code released under the [MIT](https://github.com/BlackrockDigital/startbootstrap-freelancer/blob/gh-pages/LICENSE) license.
+## Contact form (Formspree)
+
+1. Create a form at [Formspree](https://formspree.io/) that delivers to `growstack.tech@gmail.com`.
+2. Copy the form endpoint (example: `https://formspree.io/f/xxxxxx`).
+3. Add an environment variable:
+
+```bash
+NEXT_PUBLIC_FORMSPREE_ENDPOINT=https://formspree.io/f/xxxxxx
+```
+
+- Locally: create `.env.local` with the variable above.
+- On GitHub: repo **Settings → Secrets and variables → Actions** → add secret `NEXT_PUBLIC_FORMSPREE_ENDPOINT`.
+
+If the variable is unset, the contact form falls back to a `mailto:` compose using `growstack.tech@gmail.com`.
+
+## Deploy to GitHub Pages
+
+This repo ships a workflow at [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml).
+
+1. Push to `main` or `master` (or run the workflow manually).
+2. In the GitHub repo: **Settings → Pages → Build and deployment → Source** → choose **GitHub Actions**.
+3. After the workflow succeeds, the site is available at `https://nazmul19.github.io/`.
+
+### Custom domain `growstack.tech`
+
+`public/CNAME` is set to `growstack.tech` and is copied into `out/` on build.
+
+1. In GitHub Pages settings, confirm the custom domain `growstack.tech`.
+2. At your DNS provider, point the domain to GitHub Pages (A records for apex and/or CNAME for `www`, per [GitHub’s docs](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site)).
+3. Enable HTTPS once DNS has propagated.
+
+## Content edits
+
+Most copy lives under `src/content/`:
+
+- `brand.ts` — name, phone, email, headlines
+- `services.ts`, `projects.ts`, `process.ts`, `capabilities.ts`, `audiences.ts`, `differentiators.ts`
+
+## Brand rules
+
+- Do not display a founder or personal name on the site.
+- Do not invent clients, testimonials, logos, or numeric impact claims.
+- Present work as **Selected Work** / representative solutions.
