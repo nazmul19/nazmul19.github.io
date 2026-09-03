@@ -25,6 +25,13 @@ export const metadata: Metadata = {
   },
   description: seoDefaults.description,
   keywords: [...seoDefaults.keywords],
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-icon.png" }],
+  },
   openGraph: {
     type: "website",
     locale: "en_IN",

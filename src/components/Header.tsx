@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { brand, navLinks } from "@/content/brand";
+import { navLinks } from "@/content/brand";
+import { BrandLockup } from "@/components/BrandLockup";
 import { ButtonLink } from "@/components/Button";
 import { Container } from "@/components/Container";
 
@@ -25,19 +26,14 @@ export function Header() {
     <header
       className={`sticky top-0 z-50 border-b transition-colors duration-300 ${
         scrolled
-          ? "border-[color:var(--line)] bg-[color:var(--bg)]/90 backdrop-blur-md"
-          : "border-transparent bg-[color:var(--bg)]/70 backdrop-blur-sm"
+          ? "border-[color:var(--line)] bg-[color:var(--bg)]/92 backdrop-blur-md shadow-[0_10px_30px_-24px_rgba(15,23,42,0.45)]"
+          : "border-transparent bg-[color:var(--bg)]/75 backdrop-blur-sm"
       }`}
     >
-      <Container className="flex h-16 items-center justify-between gap-4 lg:h-[4.25rem]">
-        <Link
-          href="/"
-          className="font-[family-name:var(--font-display)] text-xl tracking-tight text-[color:var(--ink)]"
-        >
-          {brand.name}
-        </Link>
+      <Container className="flex h-16 items-center justify-between gap-4 lg:h-[4.5rem]">
+        <BrandLockup size="md" />
 
-        <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-6 xl:flex" aria-label="Primary">
           {navLinks.map((link) => {
             const active =
               link.href === "/"

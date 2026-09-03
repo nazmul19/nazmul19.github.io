@@ -1,7 +1,8 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useCallback, useState } from "react";
 import { Button } from "@/components/Button";
+import { SuccessToast } from "@/components/SuccessToast";
 import { brand } from "@/content/brand";
 import { buildContactMailto } from "@/lib/contact";
 import { resolveFormspreeEndpoint } from "@/lib/formspree";
@@ -16,6 +17,9 @@ const FORMSPREE_ENDPOINT = resolveFormspreeEndpoint();
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState("");
+  const [toastOpen, setToastOpen] = useState(false);
+
+  const closeToast = useCallback(() => setToastOpen(false), []);
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -66,11 +70,13 @@ export function ContactForm() {
 
         form.reset();
         setStatus("success");
+        setToastOpen(true);
         return;
       }
 
       window.location.href = buildContactMailto(fields);
       setStatus("success");
+      setToastOpen(true);
     } catch (err) {
       setStatus("error");
       setError(
@@ -81,62 +87,94 @@ export function ContactForm() {
     }
   }
 
-  return (
-    <form onSubmit={onSubmit} className="space-y-5" noValidate={false}>
-      <div className="grid gap-5 sm:grid-cols-2">
-        <label className="block text-sm font-medium text-[color:var(--ink)]">
-          Name
-          <input className={inputClass} name="name" required autoComplete="name" />
-        </label>
-        <label className="block text-sm font-medium text-[color:var(--ink)]">
-          Company Name
-          <input className={inputClass} name="company" required autoComplete="organization" />
-        </label>
-      </div>
+  if (status === "success" && FORMSPREE_ENDPOINT) {
+    return (
+      <>
+        <div className="rounded-2xl border border-[color:var(--accent)]/35 bg-[linear-gradient(135deg,rgba(15,118,110,0.12),rgba(255,255,255,0.9))] p-6 sm:p-8">
+          <p className="text-sm font-semibold tracking-[0.14em] text-[color:var(--accent)] uppercase">
+            Received
+          </p>
+          <h3 className="mt-3 font-[family-name:var(--font-display)] text-2xl text-[color:var(--ink)]">
+            We&apos;ll get back to you
+          </h3>
+          <p className="mt-3 text-sm leading-relaxed text-[color:var(--muted)] sm:text-base">
+            Thanks for reaching out to GrowStack. We&apos;ve received your project details and
+            will follow up shortly.
+          </p>
+          <Button
+            type="button"
+            variant="secondary"
+            className="mt-6"
+            onClick={() => setStatus("idle")}
+          >
+            Send another message
+          </Button>
+        </div>
+        <SuccessToast
+          open={toastOpen}
+          message="We'll get back to you shortly."
+          onClose={closeToast}
+        />
+      </>
+    );
+  }
 
-      <div className="grid gap-5 sm:grid-cols-2">
+  return (
+    <>
+      <form onSubmit={onSubmit} className="space-y-5">
+        <div className="grid gap-5 sm:grid-cols-2">
+          <label className="block text-sm font-medium text-[color:var(--ink)]">
+            Name
+            <input className={inputClass} name="name" required autoComplete="name" />
+          </label>
+          <label className="block text-sm font-medium text-[color:var(--ink)]">
+            Company Name
+            <input className={inputClass} name="company" required autoComplete="organization" />
+          </label>
+        </div>
+
+        <div className="grid gap-5 sm:grid-cols-2">
+          <label className="block text-sm font-medium text-[color:var(--ink)]">
+            Email
+            <input
+              className={inputClass}
+              name="email"
+              type="email"
+              required
+              autoComplete="email"
+            />
+          </label>
+          <label className="block text-sm font-medium text-[color:var(--ink)]">
+            Phone Number
+            <input className={inputClass} name="phone" type="tel" required autoComplete="tel" />
+          </label>
+        </div>
+
         <label className="block text-sm font-medium text-[color:var(--ink)]">
-          Email
-          <input
-            className={inputClass}
-            name="email"
-            type="email"
+          What problem are you trying to solve?
+          <textarea
+            className={`${inputClass} min-h-32 resize-y`}
+            name="problem"
             required
-            autoComplete="email"
           />
         </label>
-        <label className="block text-sm font-medium text-[color:var(--ink)]">
-          Phone Number
-          <input className={inputClass} name="phone" type="tel" required autoComplete="tel" />
-        </label>
-      </div>
 
-      <label className="block text-sm font-medium text-[color:var(--ink)]">
-        What problem are you trying to solve?
-        <textarea
-          className={`${inputClass} min-h-32 resize-y`}
-          name="problem"
-          required
-        />
-      </label>
+        <Button type="submit" size="lg" disabled={status === "submitting"}>
+          {status === "submitting" ? "Sending…" : "Discuss Your Project"}
+        </Button>
 
-      <Button type="submit" size="lg" disabled={status === "submitting"}>
-        {status === "submitting" ? "Sending…" : "Discuss Your Project"}
-      </Button>
+        {status === "error" ? (
+          <p className="text-sm text-red-700" role="alert">
+            {error} You can also reach us at {brand.email} or {brand.phoneDisplay}.
+          </p>
+        ) : null}
+      </form>
 
-      {status === "success" ? (
-        <p className="text-sm text-[color:var(--accent-strong)]" role="status">
-          {FORMSPREE_ENDPOINT
-            ? "Thanks — we received your message and will get back to you soon."
-            : "Opening your email client with the project details…"}
-        </p>
-      ) : null}
-
-      {status === "error" ? (
-        <p className="text-sm text-red-700" role="alert">
-          {error} You can also reach us at {brand.email} or {brand.phoneDisplay}.
-        </p>
-      ) : null}
-    </form>
+      <SuccessToast
+        open={toastOpen}
+        message="We'll get back to you shortly."
+        onClose={closeToast}
+      />
+    </>
   );
 }

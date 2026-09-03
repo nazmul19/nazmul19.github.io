@@ -1,0 +1,24 @@
+export function BrandMark({
+  className = "h-8 w-8",
+  title = "GrowStack",
+}: {
+  className?: string;
+  title?: string;
+}) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 64 64"
+      role="img"
+      aria-label={title}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect width="64" height="64" rx="16" fill="#0f766e" />
+      <rect x="14" y="38" width="12" height="12" rx="3" fill="#ecfdf8" opacity="0.88" />
+      <rect x="26" y="28" width="12" height="22" rx="3" fill="#f0fdfa" />
+      <rect x="38" y="16" width="12" height="34" rx="3" fill="#ffffff" />
+      <circle cx="44" cy="14" r="4.5" fill="#60a5fa" />
+      <circle cx="44" cy="14" r="8" fill="none" stroke="#93c5fd" strokeWidth="1.5" opacity="0.7" />
+    </svg>
+  );
+}

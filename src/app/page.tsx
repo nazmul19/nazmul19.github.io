@@ -4,6 +4,8 @@ import { FadeIn } from "@/components/FadeIn";
 import { ButtonLink } from "@/components/Button";
 import { FinalCTA } from "@/components/FinalCTA";
 import { HeroVisual } from "@/components/HeroVisual";
+import { KnowledgeMarquee } from "@/components/KnowledgeMarquee";
+import { BrandMark } from "@/components/BrandMark";
 import { Section, SectionHeading } from "@/components/Section";
 import { problems, audiences } from "@/content/audiences";
 import { brand } from "@/content/brand";
@@ -17,32 +19,66 @@ import Link from "next/link";
 export default function HomePage() {
   return (
     <>
-      <Section className="pt-10 sm:pt-16">
-        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+      <Section className="pt-8 sm:pt-14">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.08fr_0.92fr]">
           <FadeIn>
-            <p className="mb-4 text-sm font-medium tracking-[0.18em] text-[color:var(--accent)] uppercase">
-              {brand.name}
+            <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-[color:var(--line)] bg-[color:var(--surface)]/90 px-3 py-1.5 shadow-sm">
+              <BrandMark className="h-7 w-7" />
+              <span className="font-[family-name:var(--font-display)] text-lg font-semibold tracking-tight text-[color:var(--ink)] sm:text-xl">
+                {brand.name}
+              </span>
+            </div>
+
+            <p className="mb-4 max-w-xl text-sm font-medium tracking-[0.16em] text-[color:var(--accent)] uppercase">
+              Technology consulting & digital transformation
             </p>
-            <h1 className="font-[family-name:var(--font-display)] text-4xl leading-[1.08] text-[color:var(--ink)] sm:text-5xl lg:text-[3.4rem]">
+
+            <h1 className="font-[family-name:var(--font-display)] text-[2.55rem] leading-[1.05] text-[color:var(--ink)] sm:text-5xl lg:text-[3.55rem]">
               {brand.heroHeadline}
             </h1>
+
+            <p className="mt-4 max-w-xl font-[family-name:var(--font-display)] text-xl text-[color:var(--ink)]/80 sm:text-2xl">
+              {brand.positioning}
+            </p>
+
             <p className="mt-5 max-w-xl text-base leading-relaxed text-[color:var(--muted)] sm:text-lg">
               {brand.heroSupporting}
             </p>
+
             <div className="mt-8 flex flex-wrap gap-3">
               <ButtonLink href="/contact" size="lg">
-                Discuss Your Problem
+                Discuss Your Project
               </ButtonLink>
               <ButtonLink href="/work" variant="secondary" size="lg">
                 Explore Our Work
               </ButtonLink>
             </div>
+
+            <dl className="mt-10 grid max-w-xl grid-cols-3 gap-4 border-t border-[color:var(--line)] pt-6">
+              {[
+                { label: "Focus", value: "Business outcomes" },
+                { label: "Approach", value: "Problem-first" },
+                { label: "Delivery", value: "End-to-end build" },
+              ].map((item) => (
+                <div key={item.label}>
+                  <dt className="text-xs tracking-[0.14em] text-[color:var(--muted)] uppercase">
+                    {item.label}
+                  </dt>
+                  <dd className="mt-1 text-sm font-semibold text-[color:var(--ink)]">
+                    {item.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </FadeIn>
+
           <FadeIn delay={0.12}>
             <HeroVisual />
           </FadeIn>
         </div>
       </Section>
+
+      <KnowledgeMarquee />
 
       <Section tone="muted">
         <FadeIn>
@@ -52,17 +88,22 @@ export default function HomePage() {
             description={messagingExample.lead}
           />
           <div className="grid gap-4 sm:grid-cols-2">
-            {problems.map((problem) => (
-              <div
-                key={problem}
-                className="rounded-xl border border-[color:var(--line)] bg-[color:var(--surface)] px-5 py-4 text-[color:var(--ink)]"
-              >
-                <p className="text-sm leading-relaxed sm:text-base">{problem}</p>
+            {problems.map((problem, index) => (
+              <div key={problem} className="agency-panel rounded-2xl px-5 py-5">
+                <p className="text-xs font-semibold tracking-[0.16em] text-[color:var(--accent)]">
+                  {String(index + 1).padStart(2, "0")}
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-[color:var(--ink)] sm:text-base">
+                  {problem}
+                </p>
               </div>
             ))}
           </div>
-          <div className="mt-12 max-w-3xl">
-            <h3 className="font-[family-name:var(--font-display)] text-2xl text-[color:var(--ink)] sm:text-3xl">
+          <div className="agency-panel mt-12 max-w-3xl rounded-3xl p-7 sm:p-9">
+            <p className="text-sm font-medium tracking-[0.16em] text-[color:var(--accent)] uppercase">
+              GrowStack perspective
+            </p>
+            <h3 className="mt-3 font-[family-name:var(--font-display)] text-2xl text-[color:var(--ink)] sm:text-3xl">
               {brand.introHeadline}
             </h3>
             <p className="mt-4 text-base leading-relaxed text-[color:var(--muted)] sm:text-lg">
@@ -87,7 +128,7 @@ export default function HomePage() {
               <Link
                 key={service.slug}
                 href="/services"
-                className="group rounded-2xl border border-[color:var(--line)] bg-[color:var(--surface)] p-6 transition hover:border-[color:var(--accent)] hover:shadow-[0_20px_40px_-28px_rgba(15,118,110,0.45)]"
+                className="agency-panel group rounded-2xl p-6 transition duration-300 hover:-translate-y-0.5"
               >
                 <h3 className="text-lg font-semibold text-[color:var(--ink)] group-hover:text-[color:var(--accent-strong)]">
                   {service.title}
@@ -118,7 +159,7 @@ export default function HomePage() {
               <Link
                 key={project.slug}
                 href={`/work/${project.slug}`}
-                className="rounded-2xl border border-[color:var(--line)] bg-[color:var(--surface)] p-6 transition hover:border-[color:var(--accent)]"
+                className="agency-panel rounded-2xl p-6 transition duration-300 hover:-translate-y-0.5 sm:p-7"
               >
                 <p className="text-xs font-medium tracking-[0.14em] text-[color:var(--accent)] uppercase">
                   Selected Work
@@ -152,10 +193,7 @@ export default function HomePage() {
           />
           <div className="grid gap-4 md:grid-cols-5">
             {processSteps.map((step) => (
-              <div
-                key={step.step}
-                className="rounded-2xl border border-[color:var(--line)] bg-[color:var(--surface)] p-5"
-              >
+              <div key={step.step} className="agency-panel rounded-2xl p-5">
                 <p className="text-sm font-semibold text-[color:var(--accent)]">
                   {String(step.step).padStart(2, "0")}
                 </p>
@@ -180,13 +218,8 @@ export default function HomePage() {
           />
           <div className="grid gap-5 md:grid-cols-2">
             {capabilityGroups.map((group) => (
-              <div
-                key={group.title}
-                className="rounded-2xl border border-[color:var(--line)] bg-[color:var(--surface)] p-6"
-              >
-                <h3 className="text-lg font-semibold text-[color:var(--ink)]">
-                  {group.title}
-                </h3>
+              <div key={group.title} className="agency-panel rounded-2xl p-6">
+                <h3 className="text-lg font-semibold text-[color:var(--ink)]">{group.title}</h3>
                 <ul className="mt-4 flex flex-wrap gap-2">
                   {group.items.map((item) => (
                     <li
@@ -216,10 +249,7 @@ export default function HomePage() {
           />
           <div className="grid gap-5 md:grid-cols-3">
             {audiences.map((audience) => (
-              <div
-                key={audience.title}
-                className="rounded-2xl border border-[color:var(--line)] bg-[color:var(--surface)] p-6"
-              >
+              <div key={audience.title} className="agency-panel rounded-2xl p-6">
                 <h3 className="text-lg font-semibold text-[color:var(--ink)]">
                   {audience.title}
                 </h3>
@@ -235,18 +265,13 @@ export default function HomePage() {
       <Section tone="muted">
         <FadeIn>
           <SectionHeading
-            eyebrow="Why GrowStack"
+            eyebrow={`Why ${brand.name}`}
             title="Practical technology. Built around your business."
           />
           <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {differentiators.map((item) => (
-              <div
-                key={item.title}
-                className="rounded-2xl border border-[color:var(--line)] bg-[color:var(--surface)] p-6"
-              >
-                <h3 className="text-lg font-semibold text-[color:var(--ink)]">
-                  {item.title}
-                </h3>
+              <div key={item.title} className="agency-panel rounded-2xl p-6">
+                <h3 className="text-lg font-semibold text-[color:var(--ink)]">{item.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-[color:var(--muted)]">
                   {item.description}
                 </p>
