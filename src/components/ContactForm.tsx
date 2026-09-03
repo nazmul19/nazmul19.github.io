@@ -4,11 +4,14 @@ import { FormEvent, useState } from "react";
 import { Button } from "@/components/Button";
 import { brand } from "@/content/brand";
 import { buildContactMailto } from "@/lib/contact";
+import { resolveFormspreeEndpoint } from "@/lib/formspree";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
 const inputClass =
   "mt-2 w-full rounded-md border border-[color:var(--line)] bg-[color:var(--surface)] px-3 py-2.5 text-sm text-[color:var(--ink)] outline-none transition focus:border-[color:var(--accent)]";
+
+const FORMSPREE_ENDPOINT = resolveFormspreeEndpoint();
 
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
@@ -29,28 +32,36 @@ export function ContactForm() {
       problem: String(data.get("problem") || ""),
     };
 
-    const endpoint = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT;
-
     try {
-      if (endpoint) {
-        const response = await fetch(endpoint, {
+      if (FORMSPREE_ENDPOINT) {
+        const payload = new FormData();
+        payload.set("name", fields.name);
+        payload.set("company", fields.company);
+        payload.set("email", fields.email);
+        payload.set("phone", fields.phone);
+        payload.set("message", fields.problem);
+        payload.set("_replyto", fields.email);
+        payload.set("_subject", "Project discussion from growstack.tech");
+
+        const response = await fetch(FORMSPREE_ENDPOINT, {
           method: "POST",
+          body: payload,
           headers: {
             Accept: "application/json",
-            "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            name: fields.name,
-            company: fields.company,
-            email: fields.email,
-            phone: fields.phone,
-            message: fields.problem,
-            _subject: "Project discussion from growstack.tech",
-          }),
         });
 
+        const result = (await response.json().catch(() => null)) as {
+          error?: string;
+          errors?: Array<{ message?: string }>;
+        } | null;
+
         if (!response.ok) {
-          throw new Error("Unable to send your message right now.");
+          const detail =
+            result?.error ||
+            result?.errors?.map((item) => item.message).filter(Boolean).join(" ") ||
+            `Formspree returned ${response.status}.`;
+          throw new Error(detail);
         }
 
         form.reset();
@@ -71,7 +82,7 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-5">
+    <form onSubmit={onSubmit} className="space-y-5" noValidate={false}>
       <div className="grid gap-5 sm:grid-cols-2">
         <label className="block text-sm font-medium text-[color:var(--ink)]">
           Name
@@ -115,7 +126,7 @@ export function ContactForm() {
 
       {status === "success" ? (
         <p className="text-sm text-[color:var(--accent-strong)]" role="status">
-          {process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT
+          {FORMSPREE_ENDPOINT
             ? "Thanks — we received your message and will get back to you soon."
             : "Opening your email client with the project details…"}
         </p>

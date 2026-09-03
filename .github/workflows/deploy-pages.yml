@@ -32,10 +32,24 @@ jobs:
       - name: Install
         run: npm ci
 
+      - name: Resolve Formspree endpoint
+        id: formspree
+        env:
+          FROM_SECRET: ${{ secrets.NEXT_PUBLIC_FORMSPREE_ENDPOINT }}
+          FROM_VAR: ${{ vars.NEXT_PUBLIC_FORMSPREE_ENDPOINT }}
+        run: |
+          ENDPOINT="${FROM_SECRET:-$FROM_VAR}"
+          if [ -z "$ENDPOINT" ]; then
+            echo "::warning::NEXT_PUBLIC_FORMSPREE_ENDPOINT is not set as an Actions secret or variable. Contact form will use mailto fallback."
+          else
+            echo "Formspree endpoint is configured for this build."
+          fi
+          echo "endpoint=$ENDPOINT" >> "$GITHUB_OUTPUT"
+
       - name: Build static site
         run: npm run build
         env:
-          NEXT_PUBLIC_FORMSPREE_ENDPOINT: ${{ secrets.NEXT_PUBLIC_FORMSPREE_ENDPOINT }}
+          NEXT_PUBLIC_FORMSPREE_ENDPOINT: ${{ steps.formspree.outputs.endpoint }}
 
       # Publish the static export to the gh-pages branch.
       # GitHub Pages must use: Settings → Pages → Deploy from a branch → gh-pages / (root)

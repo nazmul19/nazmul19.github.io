@@ -31,18 +31,21 @@ npm start
 
 ## Contact form (Formspree)
 
-1. Create a form at [Formspree](https://formspree.io/) that delivers to `growstack.tech@gmail.com`.
-2. Copy the form endpoint (example: `https://formspree.io/f/xxxxxx`).
-3. Add an environment variable:
+This is a **static** site. The Formspree URL is baked in at **build** time. Setting a GitHub variable alone is not enough — you must **re-run the deploy workflow** afterward.
 
-```bash
-NEXT_PUBLIC_FORMSPREE_ENDPOINT=https://formspree.io/f/xxxxxx
-```
+1. Create a form at [Formspree](https://formspree.io/) for `growstack.tech@gmail.com`.
+2. Copy the endpoint, e.g. `https://formspree.io/f/xxxxxx` (or just the form id).
+3. In GitHub: **Settings → Secrets and variables → Actions**
+   - Prefer **Variables** → New repository variable  
+   - Name: `NEXT_PUBLIC_FORMSPREE_ENDPOINT`  
+   - Value: `https://formspree.io/f/xxxxxx`  
+   - (A **Secret** with the same name also works.)
+4. Re-deploy: **Actions → Deploy GitHub Pages → Run workflow** (or push to `master`).
+5. In Formspree, allow the domain `growstack.tech` if domain restrictions are enabled.
 
-- Locally: create `.env.local` with the variable above.
-- On GitHub: repo **Settings → Secrets and variables → Actions** → add secret `NEXT_PUBLIC_FORMSPREE_ENDPOINT`.
+Locally, put the same value in `.env.local`, then `npm run build`.
 
-If the variable is unset, the contact form falls back to a `mailto:` compose using `growstack.tech@gmail.com`.
+If the endpoint is missing at build time, the form falls back to `mailto:growstack.tech@gmail.com`.
 
 ## Deploy to GitHub Pages
 
@@ -63,9 +66,9 @@ The workflow builds and updates `gh-pages`. Give it 1–2 minutes, then hard-ref
 
 You can also run the workflow manually: **Actions → Deploy GitHub Pages → Run workflow**.
 
-### Formspree secret (optional)
+### Formspree (required for in-browser form submit)
 
-Repo **Settings → Secrets and variables → Actions** → add `NEXT_PUBLIC_FORMSPREE_ENDPOINT`.
+Set repository variable or secret `NEXT_PUBLIC_FORMSPREE_ENDPOINT`, then **re-run this workflow**. Checking the Action log for “Formspree endpoint is configured” confirms it was picked up.
 
 ## Content edits
 
