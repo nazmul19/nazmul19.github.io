@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+
+Host: https://growstack.tech
+Sitemap: https://growstack.tech/sitemap.xml
