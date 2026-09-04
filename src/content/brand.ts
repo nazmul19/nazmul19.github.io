@@ -12,7 +12,7 @@ export const brand = {
   positioning: "We Help Businesses Solve Problems with Technology.",
   heroHeadline: "Turn Business Challenges Into Digital Solutions.",
   heroSupporting:
-    "GrowStack helps small and mid-sized organizations solve business problems through custom software, automation, system integration, and AI-powered applications.",
+    "GrowStack helps organizations build SaaS products, integrate systems, modernize platforms, adopt the cloud, and scale with dedicated engineering.",
   problemHeadline: "Is Technology Holding Your Business Back?",
   introHeadline:
     "We Build the Missing Layer Between Your Business and Technology.",
@@ -21,7 +21,7 @@ export const brand = {
   aboutIntro:
     "GrowStack is a technology consulting and software development practice focused on helping businesses solve operational and growth challenges through technology.",
   aboutBody:
-    "We work across software development, automation, system integration, AI-powered applications, and intelligent workflows.",
+    "We partner with teams on SaaS development, system integration, platform modernization, cloud delivery, and dedicated engineering engagement.",
   aboutApproach:
     "Understand the business problem. Find the right technology approach. Build something practical.",
   aboutBelief:
@@ -37,9 +37,7 @@ export const brand = {
 export const navLinks = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
-  { href: "/solutions", label: "Solutions" },
-  { href: "/work", label: "Selected Work" },
-  { href: "/#how-we-work", label: "How We Work" },
+  { href: "/case-studies", label: "Case Studies" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ] as const;
@@ -47,18 +45,15 @@ export const navLinks = [
 export const seoDefaults = {
   title: "GrowStack | Technology Consulting & Digital Transformation",
   description:
-    "GrowStack helps businesses solve problems with custom software, AI applications, automation, and system integration. Practical technology built around your workflows.",
+    "GrowStack helps businesses with SaaS development, system integration, modernization, cloud, and dedicated engineering teams.",
   keywords: [
     "Technology Consulting",
+    "SaaS Development",
+    "System Integration",
+    "Application Modernization",
+    "Cloud Engineering",
+    "Dedicated Engineering Team",
     "Digital Transformation",
     "Custom Software Development",
-    "AI Application Development",
-    "AI Agent Development",
-    "Business Automation",
-    "System Integration",
-    "CRM Integration",
-    "Web Application Development",
-    "Mobile App Development",
-    "Small Business Technology Solutions",
   ],
 } as const;

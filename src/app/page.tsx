@@ -7,11 +7,8 @@ import { HeroVisual } from "@/components/HeroVisual";
 import { KnowledgeMarquee } from "@/components/KnowledgeMarquee";
 import { BrandMark } from "@/components/BrandMark";
 import { Section, SectionHeading } from "@/components/Section";
-import { problems, audiences } from "@/content/audiences";
 import { brand } from "@/content/brand";
-import { capabilityGroups } from "@/content/capabilities";
-import { differentiators, messagingExample } from "@/content/differentiators";
-import { processSteps } from "@/content/process";
+import { messagingExample } from "@/content/differentiators";
 import { projects } from "@/content/projects";
 import { services } from "@/content/services";
 import Link from "next/link";
@@ -49,27 +46,10 @@ export default function HomePage() {
               <ButtonLink href="/contact" size="lg">
                 Discuss Your Project
               </ButtonLink>
-              <ButtonLink href="/work" variant="secondary" size="lg">
-                Explore Our Work
+              <ButtonLink href="/case-studies" variant="secondary" size="lg">
+                View Case Studies
               </ButtonLink>
             </div>
-
-            <dl className="mt-10 grid max-w-xl grid-cols-3 gap-4 border-t border-[color:var(--line)] pt-6">
-              {[
-                { label: "Focus", value: "Business outcomes" },
-                { label: "Approach", value: "Problem-first" },
-                { label: "Delivery", value: "End-to-end build" },
-              ].map((item) => (
-                <div key={item.label}>
-                  <dt className="text-xs tracking-[0.14em] text-[color:var(--muted)] uppercase">
-                    {item.label}
-                  </dt>
-                  <dd className="mt-1 text-sm font-semibold text-[color:var(--ink)]">
-                    {item.value}
-                  </dd>
-                </div>
-              ))}
-            </dl>
           </FadeIn>
 
           <FadeIn delay={0.12}>
@@ -83,51 +63,15 @@ export default function HomePage() {
       <Section tone="muted">
         <FadeIn>
           <SectionHeading
-            eyebrow="Business Challenges"
-            title={brand.problemHeadline}
-            description={messagingExample.lead}
-          />
-          <div className="grid gap-4 sm:grid-cols-2">
-            {problems.map((problem, index) => (
-              <div key={problem} className="agency-panel rounded-2xl px-5 py-5">
-                <p className="text-xs font-semibold tracking-[0.16em] text-[color:var(--accent)]">
-                  {String(index + 1).padStart(2, "0")}
-                </p>
-                <p className="mt-3 text-sm leading-relaxed text-[color:var(--ink)] sm:text-base">
-                  {problem}
-                </p>
-              </div>
-            ))}
-          </div>
-          <div className="agency-panel mt-12 max-w-3xl rounded-3xl p-7 sm:p-9">
-            <p className="text-sm font-medium tracking-[0.16em] text-[color:var(--accent)] uppercase">
-              GrowStack perspective
-            </p>
-            <h3 className="mt-3 font-[family-name:var(--font-display)] text-2xl text-[color:var(--ink)] sm:text-3xl">
-              {brand.introHeadline}
-            </h3>
-            <p className="mt-4 text-base leading-relaxed text-[color:var(--muted)] sm:text-lg">
-              {brand.introBody}
-            </p>
-            <p className="mt-4 text-base leading-relaxed text-[color:var(--muted)]">
-              {messagingExample.follow}
-            </p>
-          </div>
-        </FadeIn>
-      </Section>
-
-      <Section>
-        <FadeIn>
-          <SectionHeading
-            eyebrow="Services"
-            title="Practical solutions for real operational problems"
-            description="From custom software and integrations to AI agents and automation — built around the way your business works."
+            eyebrow="What we do"
+            title={brand.introHeadline}
+            description={messagingExample.follow}
           />
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {services.map((service) => (
               <Link
                 key={service.slug}
-                href="/services"
+                href={`/services/#${service.slug}`}
                 className="agency-panel group rounded-2xl p-6 transition duration-300 hover:-translate-y-0.5"
               >
                 <h3 className="text-lg font-semibold text-[color:var(--ink)] group-hover:text-[color:var(--accent-strong)]">
@@ -141,101 +85,7 @@ export default function HomePage() {
           </div>
           <div className="mt-8">
             <ButtonLink href="/services" variant="secondary">
-              View all services
-            </ButtonLink>
-          </div>
-        </FadeIn>
-      </Section>
-
-      <Section tone="muted">
-        <FadeIn>
-          <SectionHeading
-            eyebrow="Selected Work"
-            title="Representative solutions we've built"
-            description="Case studies framed around business challenges and outcomes — without confidential client details."
-          />
-          <div className="grid gap-5 lg:grid-cols-2">
-            {projects.slice(0, 4).map((project) => (
-              <Link
-                key={project.slug}
-                href={`/work/${project.slug}`}
-                className="agency-panel rounded-2xl p-6 transition duration-300 hover:-translate-y-0.5 sm:p-7"
-              >
-                <p className="text-xs font-medium tracking-[0.14em] text-[color:var(--accent)] uppercase">
-                  Selected Work
-                </p>
-                <h3 className="mt-3 text-xl font-semibold text-[color:var(--ink)]">
-                  {project.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-[color:var(--muted)]">
-                  {project.challenge}
-                </p>
-                <p className="mt-4 text-sm font-medium text-[color:var(--accent-strong)]">
-                  View case study →
-                </p>
-              </Link>
-            ))}
-          </div>
-          <div className="mt-8">
-            <ButtonLink href="/work" variant="secondary">
-              Browse selected work
-            </ButtonLink>
-          </div>
-        </FadeIn>
-      </Section>
-
-      <Section id="how-we-work">
-        <FadeIn>
-          <SectionHeading
-            eyebrow="How We Work"
-            title="A clear path from problem to practical solution"
-            description={brand.processHighlight}
-          />
-          <div className="grid gap-4 md:grid-cols-5">
-            {processSteps.map((step) => (
-              <div key={step.step} className="agency-panel rounded-2xl p-5">
-                <p className="text-sm font-semibold text-[color:var(--accent)]">
-                  {String(step.step).padStart(2, "0")}
-                </p>
-                <h3 className="mt-3 text-lg font-semibold text-[color:var(--ink)]">
-                  {step.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-[color:var(--muted)]">
-                  {step.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </FadeIn>
-      </Section>
-
-      <Section tone="muted">
-        <FadeIn>
-          <SectionHeading
-            eyebrow="Capabilities"
-            title="An interconnected technology practice"
-            description="Not a laundry list of tools — a connected set of capabilities for applications, intelligence, integration, and automation."
-          />
-          <div className="grid gap-5 md:grid-cols-2">
-            {capabilityGroups.map((group) => (
-              <div key={group.title} className="agency-panel rounded-2xl p-6">
-                <h3 className="text-lg font-semibold text-[color:var(--ink)]">{group.title}</h3>
-                <ul className="mt-4 flex flex-wrap gap-2">
-                  {group.items.map((item) => (
-                    <li
-                      key={item}
-                      className="rounded-full border border-[color:var(--line)] bg-[color:var(--bg)] px-3 py-1 text-xs text-[color:var(--muted)]"
-                    >
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-          <div className="mt-8">
-            <ButtonLink href="/solutions" variant="secondary">
-              Explore solutions
+              Explore services
             </ButtonLink>
           </div>
         </FadeIn>
@@ -244,39 +94,67 @@ export default function HomePage() {
       <Section>
         <FadeIn>
           <SectionHeading
-            eyebrow="Who We Work With"
-            title="Built for businesses ready to improve how they work"
+            eyebrow="Case Studies"
+            title="Selected work across products, platforms, and operations"
+            description="Representative solutions framed around business challenges and outcomes — without confidential client details."
           />
-          <div className="grid gap-5 md:grid-cols-3">
-            {audiences.map((audience) => (
-              <div key={audience.title} className="agency-panel rounded-2xl p-6">
-                <h3 className="text-lg font-semibold text-[color:var(--ink)]">
-                  {audience.title}
+          <div className="grid gap-5 lg:grid-cols-2">
+            {projects.slice(0, 4).map((project) => (
+              <Link
+                key={project.slug}
+                href={`/case-studies/${project.slug}`}
+                className="agency-panel rounded-2xl p-6 transition duration-300 hover:-translate-y-0.5 sm:p-7"
+              >
+                <p className="text-xs font-medium tracking-[0.14em] text-[color:var(--accent)] uppercase">
+                  Case Study
+                </p>
+                <h3 className="mt-3 text-xl font-semibold text-[color:var(--ink)]">
+                  {project.title}
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-[color:var(--muted)]">
-                  {audience.description}
+                  {project.challenge}
                 </p>
-              </div>
+                <p className="mt-4 text-sm font-medium text-[color:var(--accent-strong)]">
+                  Read case study →
+                </p>
+              </Link>
             ))}
+          </div>
+          <div className="mt-8">
+            <ButtonLink href="/case-studies" variant="secondary">
+              All case studies
+            </ButtonLink>
           </div>
         </FadeIn>
       </Section>
 
       <Section tone="muted">
         <FadeIn>
-          <SectionHeading
-            eyebrow={`Why ${brand.name}`}
-            title="Practical technology. Built around your business."
-          />
-          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {differentiators.map((item) => (
-              <div key={item.title} className="agency-panel rounded-2xl p-6">
-                <h3 className="text-lg font-semibold text-[color:var(--ink)]">{item.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-[color:var(--muted)]">
-                  {item.description}
-                </p>
+          <div className="agency-panel grid gap-8 rounded-3xl p-7 sm:p-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+            <div>
+              <p className="text-sm font-medium tracking-[0.16em] text-[color:var(--accent)] uppercase">
+                About GrowStack
+              </p>
+              <h2 className="mt-3 font-[family-name:var(--font-display)] text-3xl text-[color:var(--ink)]">
+                {brand.aboutApproach}
+              </h2>
+              <p className="mt-4 text-base leading-relaxed text-[color:var(--muted)]">
+                {brand.aboutIntro}
+              </p>
+              <div className="mt-6">
+                <ButtonLink href="/about" variant="secondary">
+                  About GrowStack
+                </ButtonLink>
               </div>
-            ))}
+            </div>
+            <div className="rounded-2xl border border-[color:var(--line)] bg-[color:var(--bg)] p-6">
+              <p className="text-sm leading-relaxed text-[color:var(--muted)]">
+                {brand.aboutBelief}
+              </p>
+              <p className="mt-4 text-sm font-semibold text-[color:var(--ink)]">
+                {brand.processHighlight}
+              </p>
+            </div>
           </div>
         </FadeIn>
       </Section>

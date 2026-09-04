@@ -1,12 +1,10 @@
 const items = [
-  "Problem-first consulting",
-  "Custom software",
-  "AI agents & RAG",
+  "SaaS development",
   "System integration",
-  "Business automation",
-  "Mobile & web platforms",
-  "CRM / ERP connectivity",
-  "Operational dashboards",
+  "Platform modernization",
+  "Cloud engineering",
+  "Dedicated engineering teams",
+  "Problem-first consulting",
 ];
 
 export function KnowledgeMarquee() {

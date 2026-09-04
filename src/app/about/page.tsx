@@ -4,11 +4,12 @@ import { FinalCTA } from "@/components/FinalCTA";
 import { HeroVisual } from "@/components/HeroVisual";
 import { Section, SectionHeading } from "@/components/Section";
 import { brand } from "@/content/brand";
+import { services } from "@/content/services";
 
 export const metadata: Metadata = {
   title: "About GrowStack",
   description:
-    "GrowStack is a technology consulting and software development practice focused on solving operational and growth challenges through practical digital solutions.",
+    "GrowStack is a technology consulting practice focused on SaaS, integration, modernization, cloud, and dedicated engineering.",
 };
 
 export default function AboutPage() {
@@ -25,7 +26,7 @@ export default function AboutPage() {
               <p>{brand.aboutIntro}</p>
               <p>{brand.aboutBody}</p>
               <p>Our approach is simple:</p>
-              <p className="rounded-2xl border border-[color:var(--line)] bg-[color:var(--surface)] p-5 font-[family-name:var(--font-display)] text-xl text-[color:var(--ink)]">
+              <p className="agency-panel rounded-2xl p-5 font-[family-name:var(--font-display)] text-xl text-[color:var(--ink)]">
                 {brand.aboutApproach}
               </p>
               <p>{brand.aboutBelief}</p>
@@ -36,7 +37,27 @@ export default function AboutPage() {
           </FadeIn>
         </div>
       </Section>
+
       <Section tone="muted">
+        <FadeIn>
+          <SectionHeading
+            eyebrow="How we engage"
+            title="Clear service lines for product and engineering needs"
+          />
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {services.map((service) => (
+              <div key={service.slug} className="agency-panel rounded-2xl p-5">
+                <h3 className="font-semibold text-[color:var(--ink)]">{service.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-[color:var(--muted)]">
+                  {service.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </FadeIn>
+      </Section>
+
+      <Section>
         <FadeIn>
           <FinalCTA />
         </FadeIn>

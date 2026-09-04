@@ -7,7 +7,7 @@ import { services } from "@/content/services";
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Custom software, AI-powered applications, AI agents, automation, system integration, and mobile development from GrowStack.",
+    "GrowStack services: SaaS development, system integration, modernization, cloud engineering, and dedicated engineering teams.",
 };
 
 export default function ServicesPage() {
@@ -17,15 +17,15 @@ export default function ServicesPage() {
         <FadeIn>
           <SectionHeading
             eyebrow="Services"
-            title="Technology services that start with the business problem"
-            description="We design and build solutions around your workflows — not generic feature checklists."
+            title="Five focused ways we help you build and improve technology"
+            description="Clear engagement models — from product builds and integrations to modernization, cloud, and dedicated engineering."
           />
           <div className="space-y-6">
             {services.map((service) => (
               <article
                 key={service.slug}
                 id={service.slug}
-                className="rounded-2xl border border-[color:var(--line)] bg-[color:var(--surface)] p-6 sm:p-8"
+                className="agency-panel scroll-mt-28 rounded-2xl p-6 sm:p-8"
               >
                 <h2 className="font-[family-name:var(--font-display)] text-2xl text-[color:var(--ink)] sm:text-3xl">
                   {service.title}

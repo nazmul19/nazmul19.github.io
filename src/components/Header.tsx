@@ -35,11 +35,13 @@ export function Header() {
 
         <nav className="hidden items-center gap-6 xl:flex" aria-label="Primary">
           {navLinks.map((link) => {
+            const normalizedPath = pathname.replace(/\/$/, "") || "/";
+            const normalizedHref = link.href.replace(/\/$/, "") || "/";
             const active =
-              link.href === "/"
-                ? pathname === "/"
-                : !link.href.includes("#") &&
-                  (pathname === link.href || pathname.startsWith(`${link.href}/`));
+              normalizedHref === "/"
+                ? normalizedPath === "/"
+                : normalizedPath === normalizedHref ||
+                  normalizedPath.startsWith(`${normalizedHref}/`);
 
             return (
               <Link

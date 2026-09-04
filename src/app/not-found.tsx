@@ -20,10 +20,10 @@ export default function NotFound() {
           Contact GrowStack
         </ButtonLink>
         <Link
-          href="/work"
+          href="/case-studies"
           className="inline-flex items-center text-sm text-[color:var(--muted)] hover:text-[color:var(--accent-strong)]"
         >
-          Selected work
+          Case studies
         </Link>
       </div>
     </Container>

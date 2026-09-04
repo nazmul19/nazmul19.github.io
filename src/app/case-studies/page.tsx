@@ -6,18 +6,18 @@ import { Section, SectionHeading } from "@/components/Section";
 import { projects } from "@/content/projects";
 
 export const metadata: Metadata = {
-  title: "Selected Work",
+  title: "Case Studies",
   description:
-    "Representative technology solutions from GrowStack — AI companions, monitoring platforms, dashboards, automation, and more.",
+    "GrowStack case studies across SaaS, integrations, modernization, AI platforms, and operational systems.",
 };
 
-export default function WorkPage() {
+export default function CaseStudiesPage() {
   return (
     <>
       <Section className="pt-10 sm:pt-16">
         <FadeIn>
           <SectionHeading
-            eyebrow="Selected Work"
+            eyebrow="Case Studies"
             title="Representative solutions built around business problems"
             description="These case studies describe challenges, approaches, and value without revealing confidential client information."
           />
@@ -25,11 +25,11 @@ export default function WorkPage() {
             {projects.map((project) => (
               <Link
                 key={project.slug}
-                href={`/work/${project.slug}`}
-                className="rounded-2xl border border-[color:var(--line)] bg-[color:var(--surface)] p-6 transition hover:border-[color:var(--accent)] sm:p-7"
+                href={`/case-studies/${project.slug}`}
+                className="agency-panel rounded-2xl p-6 transition duration-300 hover:-translate-y-0.5 sm:p-7"
               >
                 <p className="text-xs font-medium tracking-[0.14em] text-[color:var(--accent)] uppercase">
-                  Selected Work
+                  Case Study
                 </p>
                 <h2 className="mt-3 font-[family-name:var(--font-display)] text-2xl text-[color:var(--ink)]">
                   {project.title}
